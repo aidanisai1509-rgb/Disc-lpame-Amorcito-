@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Nao ❤️</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle at 50% 35%, #ffd6e7 0%, #f7a9c9 48%, #ee82b1 100%);
+    color: #4a1830;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .stars, .hearts {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    opacity: .75;
+    animation: twinkle 2.5s infinite ease-in-out;
+  }
+
+  @keyframes twinkle {
+    0%,100% { opacity: .2; transform: scale(.8); }
+    50% { opacity: 1; transform: scale(1.3); }
+  }
+
+  .card {
+    width: min(90%, 430px);
+    padding: 34px 24px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 28px;
+    background: rgba(255, 244, 249, .78);
+    box-shadow: 0 20px 70px rgba(120, 35, 75, .22);
+    backdrop-filter: blur(10px);
+    z-index: 2;
+    animation: appear .8s ease;
+  }
+
+  @keyframes appear {
+    from { opacity: 0; transform: translateY(18px) scale(.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .emoji {
+    font-size: 54px;
+    margin-bottom: 8px;
+    animation: pulse 1.8s infinite;
+  }
+
+  @keyframes pulse {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+  }
+
+  h1 {
+    margin: 0 0 12px;
+    font-size: 32px;
+  }
+
+  p {
+    color: #6f4055;
+    line-height: 1.55;
+    font-size: 16px;
+    margin: 0 auto 24px;
+    max-width: 340px;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    min-height: 90px;
+    position: relative;
+  }
+
+  button {
+    border: 0;
+    border-radius: 999px;
+    padding: 13px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform .25s ease, font-size .25s ease, padding .25s ease;
+    touch-action: manipulation;
+  }
+
+  #yes {
+    background: #4caf50;
+    color: white;
+    box-shadow: 0 8px 25px rgba(76,175,80,.28);
+  }
+
+  #no {
+    background: #ef5350;
+    color: white;
+  }
+
+  .final {
+    display: none;
+  }
+
+  .final h1 {
+    font-size: 31px;
+  }
+
+  .final .bigheart {
+    font-size: 68px;
+    animation: pulse 1.2s infinite;
+  }
+
+  .floating-heart {
+    position: fixed;
+    bottom: -30px;
+    font-size: 22px;
+    animation: floatUp 3.5s linear forwards;
+    z-index: 5;
+    pointer-events: none;
+  }
+
+  @keyframes floatUp {
+    from { transform: translateY(0) rotate(0deg); opacity: 1; }
+    to { transform: translateY(-110vh) rotate(25deg); opacity: 0; }
+  }
+
+  .small {
+    font-size: 13px;
+    color: #9a5c76;
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+<div class="hearts" id="hearts"></div>
+
+<div class="card" id="questionCard">
+  <div class="emoji">🥺❤️</div>
+  <h1 id="question">¿Me perdonas?</h1>
+  <p id="subtext">Prometo que esta vez sí voy a demostrarte lo mucho que me importas.</p>
+
+  <div class="buttons">
+    <button id="yes">Sí ❤️</button>
+    <button id="no">No</button>
+  </div>
+
+  <div class="small">Para mi Nao ✨</div>
+</div>
+
+<div class="card final" id="finalCard">
+  <div class="bigheart">❤️</div>
+  <h1>Sabía que sí 🥹</h1>
+  <p>
+    Gracias por perdonarme, Nao.<br><br>
+    Ahora déjame demostrártelo con mis acciones,
+    no solamente con palabras.
+  </p>
+  <div class="small">Te amo mucho, mi Nao. ❤️</div>
+</div>
+
+<script>
+  const stars = document.getElementById("stars");
+  for (let i = 0; i < 90; i++) {
+    const s = document.createElement("div");
+    s.className = "star";
+    s.style.left = Math.random() * 100 + "%";
+    s.style.top = Math.random() * 100 + "%";
+    s.style.animationDelay = Math.random() * 3 + "s";
+    stars.appendChild(s);
+  }
+
+  const yes = document.getElementById("yes");
+  const no = document.getElementById("no");
+  const question = document.getElementById("question");
+  const subtext = document.getElementById("subtext");
+  const questionCard = document.getElementById("questionCard");
+  const finalCard = document.getElementById("finalCard");
+
+  let noCount = 0;
+
+  const messages = [
+    ["¿Segura? 🥺", "Piénsalo otra vez..."],
+    ["Naooo 😭", "No me hagas sufrir JAJAJA"],
+    ["¿De verdad? 👉👈", "Mira que sí me arrepiento..."],
+    ["Porfaaaa ❤️", "Te prometo que quiero hacerlo mejor."],
+    ["Última oportunidad 🥹", "Anda, dame una oportunidad."]
+  ];
+
+  no.addEventListener("click", () => {
+    noCount++;
+
+    const size = Math.min(1 + noCount * 0.28, 3.4);
+    yes.style.transform = `scale(${size})`;
+
+    const msg = messages[Math.min(noCount - 1, messages.length - 1)];
+    question.textContent = msg[0];
+    subtext.textContent = msg[1];
+
+    no.style.transform = `scale(${Math.max(0.55, 1 - noCount * 0.1)})`;
+
+    if (noCount >= 6) {
+      no.textContent = "Ya ni modo 😭";
+    }
+  });
+
+  yes.addEventListener("click", () => {
+    questionCard.style.display = "none";
+    finalCard.style.display = "block";
+
+    for (let i = 0; i < 35; i++) {
+      setTimeout(createHeart, i * 70);
+    }
+  });
+
+  function createHeart() {
+    const h = document.createElement("div");
+    h.className = "floating-heart";
+    h.textContent = ["❤️","💗","💕","✨","🤍"][Math.floor(Math.random()*5)];
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.animationDuration = (2.5 + Math.random() * 2) + "s";
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 5000);
+  }
+</script>
+
+</body>
+</html>
